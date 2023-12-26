@@ -2,16 +2,22 @@
   "name": "chatapp-backend2",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "functions/api.js",
   "scripts": {
-    "start": "NODE_ENV=development ./node_modules/.bin/netlify-lambda serve src",
-    "build": "NODE_ENV=production ./node_modules/.bin/netlify-lambda build src"  },
+    "start": "nodemon api.js",
+    "build": "netlify deploy --prod"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "netlify-cli": "^17.10.1",
     "netlify-lambda": "^2.0.16",
     "serverless-http": "^3.2.0"
+  },
+  "devDependencies": {
+    "terser": "^3.14.1"
   }
 }
