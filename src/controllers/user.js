@@ -1,15 +1,15 @@
 const User = require("../model/user");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 const register = async (req, res, next) => {
   try {
-    const { username, email, password, firstName, lastName } = req.body;
+    const { email, password, firstName, lastName } = req.body;
 
-    const usernameCheck = await User.findOne({ username });
+    // const usernameCheck = await User.findOne({ username });
 
-    if (usernameCheck) {
-      return res.json({ msg: "USERNAME already in use", status: false });
-    }
+    // if (usernameCheck) {
+    //   return res.json({ msg: "USERNAME already in use", status: false });
+    // }
 
     const emailCheck = await User.findOne({ email });
     if (emailCheck)
@@ -19,7 +19,7 @@ const register = async (req, res, next) => {
 
     const user = await User.create({
       email,
-      username,
+      //   username,
       firstName,
       lastName,
       password: hashedPassword,
@@ -77,7 +77,7 @@ const getAllUsers = async (req, res, next) => {
       "avatarImage",
       "_id",
       "firstName",
-      "lastName"
+      "lastName",
     ]);
 
     return res.json(users);
