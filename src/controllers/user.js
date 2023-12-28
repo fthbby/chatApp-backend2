@@ -1,20 +1,24 @@
 const User = require("../model/user");
 
+
 const getAllUsers = async (req, res, next) => {
-  try {
-    const users = await User.find({ _id: { $ne: req.params.id } }).select([
-      "email",
-      "image",
-      "_id",
-      "firstName",
-      "lastName",
-    ]);
-    return res.json(users);
-  } catch (err) {
-    console.log("err :", err);
-    next(err);
-  }
-};
+    try {
+      const users = await User.find({ _id: { $ne: req.params.id } }).select([
+        "email",
+        "image",
+        "_id",
+        "firstName",
+        "lastName",
+      ]);
+      return res.json({
+        success: true,
+        data:users,
+      });
+    } catch (err) {
+      console.log("err :", err);
+      next(err);
+    }
+  };
 
 const uploadAvatar = async (req, res, next) => {
   try {
