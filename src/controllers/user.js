@@ -35,10 +35,8 @@ const uploadAvatar = async (req, res, next) => {
     });
 
     return res.json({
-      userData,
-      isSet: userData.isAvatarImageSet,
-      image: userData.image,
       success: true,
+      data: userData,
     });
   } catch (err) {
     res.send({ Status: "error setting avatar", err });
@@ -47,12 +45,11 @@ const uploadAvatar = async (req, res, next) => {
 
 const removeAvatar = async (req, res, next) => {
   try {
-    const { id, base64 } = req.body;
+    const { id } = req.body;
     if (!id) {
       return res.json({ msg: "no user" });
     }
     const user = await User.findOne({ _id: id });
-
     const userId = user._id;
 
     const userData = await User.findByIdAndUpdate(userId, {
@@ -61,7 +58,6 @@ const removeAvatar = async (req, res, next) => {
     });
 
     return res.json({
-      userData,
       isSet: userData.isAvatarImageSet,
       image: null,
       success: true,
