@@ -1,6 +1,5 @@
 const bcrypt = require("bcryptjs");
-const User = require('../model/user')
-
+const User = require("../model/user");
 
 const register = async (req, res, next) => {
   try {
@@ -45,31 +44,5 @@ const login = async (req, res, next) => {
   }
 };
 
-const uploadAvatar = async (req, res, next) => {
-  try {
-    const { base64, id } = req.body;
-    const user = await User.findOne({ _id: id });
 
-    if (!user) {
-      return res.json({ msg: "no user found" });
-    }
-
-    const userId = user._id;
-    const image = base64;
-    const userData = await User.findByIdAndUpdate(userId, {
-      isAvatarImageSet: true,
-      image,
-    });
-
-    return res.json({
-      userData: userData,
-      isSet: userData.isAvatarImageSet,
-      image: userData.image,
-      success: true,
-    });
-  } catch (err) {
-    res.send({ Status: "error setting avatar", err });
-  }
-};
-
-module.exports = { register, login, uploadAvatar };
+module.exports = { register, login };
